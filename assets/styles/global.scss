@@ -1,0 +1,122 @@
+@import "variables";
+@import "mixins/flexbox/flexbox", "mixins/fonts/fonts",
+  "mixins/effects/effects.scss", "mixins/respond-to/respond-to.scss";
+
+* {
+  font-family: "Roboto Slab", serif;
+}
+
+h1 {
+  @include H1($black-100);
+  @include respond-to(small) {
+    @include m-H1($black-100);
+  }
+}
+
+h2 {
+  @include H2($black-100);
+  @include respond-to(small) {
+    @include m-H2($black-100);
+  }
+}
+
+h3 {
+  @include H3($black-100);
+  @include respond-to(small) {
+    @include m-H3($black-100);
+  }
+}
+
+h4 {
+  @include H4($black-100);
+  @include respond-to(small) {
+    @include m-H4($black-100);
+  }
+}
+
+a {
+  position: relative;
+  text-decoration: none;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    height: 2px;
+    width: 0;
+    transition: 0.2s;
+  }
+
+  &:hover {
+    &::before {
+      width: 100%;
+    }
+  }
+}
+
+.btn-main,
+.btn-main-light {
+  position: relative;
+  @include flexbox(flex, row, center, center);
+  transition: 0.2s;
+  overflow: hidden;
+  z-index: 0;
+
+  &::after {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 0;
+    transition: 0.2s;
+    z-index: -1;
+  }
+
+  &:hover {
+    &::after {
+      width: 100%;
+    }
+  }
+}
+
+.btn-main {
+  border: 2px solid $main-100;
+  background: $main-100;
+  color: $white;
+
+  &::after {
+    background: $white;
+  }
+
+  &:hover {
+    color: $main-100;
+  }
+}
+
+.btn-main-light {
+  border: 2px solid $main-100;
+  background: $white;
+  color: $main-100;
+
+  &::after {
+    background: $main-100;
+  }
+
+  &:hover {
+    color: $white;
+  }
+}
+
+.product-badge {
+  @include Body($white);
+  @include L1;
+}
+
+.product-badge_new {
+  background: $dirty-red;
+}
+
+.product-badge_gift {
+  color: $black-80;
+  background: $yellow;
+}

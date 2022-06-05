@@ -1,0 +1,172 @@
+* {
+  font-family: "Roboto Slab", serif;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 60px;
+  color: #000000;
+}
+
+@media (max-width: 360px) {
+  h1 {
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 32px;
+    color: #000000;
+  }
+}
+
+h2 {
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 44px;
+  color: #000000;
+}
+
+@media (max-width: 360px) {
+  h2 {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 28px;
+    color: #000000;
+  }
+}
+
+h3 {
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 32px;
+  color: #000000;
+}
+
+@media (max-width: 360px) {
+  h3 {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 24px;
+    color: #000000;
+  }
+}
+
+h4 {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  color: #000000;
+}
+
+@media (max-width: 360px) {
+  h4 {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
+  }
+}
+
+a {
+  position: relative;
+  text-decoration: none;
+}
+
+a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  height: 2px;
+  width: 0;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+a:hover::before {
+  width: 100%;
+}
+
+.btn-main,
+.btn-main-light {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.btn-main::after,
+.btn-main-light::after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 0;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  z-index: -1;
+}
+
+.btn-main:hover::after,
+.btn-main-light:hover::after {
+  width: 100%;
+}
+
+.btn-main {
+  border: 2px solid #cc693e;
+  background: #cc693e;
+  color: #ffffff;
+}
+
+.btn-main::after {
+  background: #ffffff;
+}
+
+.btn-main:hover {
+  color: #cc693e;
+}
+
+.btn-main-light {
+  border: 2px solid #cc693e;
+  background: #ffffff;
+  color: #cc693e;
+}
+
+.btn-main-light::after {
+  background: #cc693e;
+}
+
+.btn-main-light:hover {
+  color: #ffffff;
+}
+
+.product-badge {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #ffffff;
+  -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15), 0px 0px 4px rgba(0, 0, 0, 0.16), 0px 1px 2px rgba(0, 0, 0, 0.16);
+          box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15), 0px 0px 4px rgba(0, 0, 0, 0.16), 0px 1px 2px rgba(0, 0, 0, 0.16);
+}
+
+.product-badge_new {
+  background: #e30029;
+}
+
+.product-badge_gift {
+  color: #333333;
+  background: #ffe600;
+}
+/*# sourceMappingURL=global.css.map */

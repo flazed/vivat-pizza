@@ -1,0 +1,13 @@
+$breakpoints: (
+  small: "( max-width: 360px )",
+);
+
+@mixin respond-to($name) {
+  @if map-has-key($breakpoints, $name) {
+    @media #{map-get($breakpoints, $name)} {
+      @content;
+    }
+  } @else {
+    @warn "No match found in breakpoint map";
+  }
+}

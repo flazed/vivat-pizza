@@ -1,0 +1,537 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+@import "variables";
+@import "mixins/flexbox/flexbox", "mixins/fonts/fonts",
+  "mixins/effects/effects.scss", "mixins/respond-to/respond-to.scss";
+
+.header {
+  &__logo {
+    img {
+      max-width: 225px;
+    }
+
+    @include respond-to(small) {
+      padding-left: 15px;
+
+      img {
+        max-width: 160px;
+      }
+    }
+  }
+
+  &__locations {
+    @include respond-to(small) {
+      display: none !important;
+    }
+  }
+
+  &__location-pos {
+    @include Body-S($black-60);
+  }
+
+  &__location-geo {
+    color: $main-100;
+  }
+
+  &__location-phone {
+    @include Body-XL($black-100);
+  }
+
+  &__burger {
+    display: none;
+
+    @include respond-to(small) {
+      display: block;
+      padding-right: 15px;
+    }
+  }
+
+  &__burger-menu {
+    height: 40px;
+    width: 40px;
+  }
+
+  &__burger-line {
+    background: $black-100;
+    border-radius: 13px;
+    width: 100%;
+    height: 5px;
+  }
+
+  &__sub-menu {
+    display: none;
+
+    @include respond-to(small) {
+      display: flex !important;
+    }
+  }
+
+  &__sub-menu-item {
+    display: inline-block;
+    margin: 3px;
+    padding: 10px 18px;
+    border-radius: 25px;
+    background: $black-80;
+
+    &:first-child {
+      border-radius: 0 25px 25px 0;
+      margin-left: 0;
+    }
+
+    &:last-child {
+      border-radius: 25px 0 0 25px;
+      margin-right: 0;
+    }
+  }
+
+  &__order-total {
+    background: $main-100;
+
+    a {
+      @include m-Price-L($white);
+    }
+  }
+}
+
+.basket {
+  &__body {
+    @include respond-to(small) {
+      flex-direction: column;
+    }
+  }
+
+  &__status {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  &__status-title {
+    padding: 0 20px;
+    color: $black-20;
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:last-child {
+      padding-right: 0;
+    }
+
+    &--active {
+      color: $black-100;
+    }
+  }
+
+  &__status-divider {
+    @include flexbox(flex, row, center, center);
+    flex-grow: 1;
+    border-top: 4px dashed $black-20;
+
+    @include respond-to(small) {
+      border-width: 2px;
+      padding: 0 20px;
+    }
+  }
+
+  &__product {
+    min-height: 200px;
+    background: $black-10;
+    border-radius: 8px;
+
+    @include respond-to(small) {
+      min-height: 60px;
+      height: 60px;
+      border-radius: 0;
+      background: transparent;
+
+      @include L2;
+    }
+  }
+
+  &__product-remove {
+    @include flexbox(flex, row, center, center);
+    width: 25px;
+    height: 25px;
+    border: 2px solid $black-40;
+    cursor: pointer;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      background: $black-40;
+      border-radius: 30px;
+      transform: rotate(45deg);
+    }
+
+    &::before {
+      width: 11px;
+      height: 3px;
+    }
+
+    &::after {
+      width: 3px;
+      height: 11px;
+    }
+
+    @include respond-to(small) {
+      width: 16px;
+      height: 16px;
+      display: none;
+    }
+  }
+
+  .m-product-remove {
+    @include respond-to(small) {
+      display: flex;
+      top: 50% !important;
+      right: 15px !important;
+      transform: translateY(-50%);
+
+      &::before {
+        width: 8px;
+        height: 2px;
+      }
+
+      &::after {
+        width: 2px;
+        height: 8px;
+      }
+    }
+  }
+
+  &__product-preview {
+    img {
+      border-radius: 8px 0 0 8px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @include respond-to(small) {
+      @include flexbox(flex, row, start, center);
+
+      img {
+        border-radius: 0;
+        filter: brightness(50%);
+      }
+    }
+  }
+
+  .product-badge {
+    @include respond-to(small) {
+      display: none;
+    }
+  }
+
+  &__product-name {
+    display: none;
+    position: absolute;
+    margin-left: 15px;
+    @include m-Body($white);
+    z-index: 1;
+
+    @include respond-to(small) {
+      display: block;
+    }
+  }
+
+  &__product-description {
+    @include Body($black-60);
+
+    @include respond-to(small) {
+      display: none;
+    }
+  }
+
+  &__product-price {
+    @include flexbox(flex, column, center, center);
+    @include Price-XL($black-80);
+
+    @include respond-to(small) {
+      @include m-Price($black-80);
+
+      &:first-child {
+        display: none;
+      }
+    }
+  }
+
+  &__product-info {
+    @include respond-to(small) {
+      h3 {
+        display: none;
+      }
+    }
+  }
+
+  &__old-price {
+    @include Price-XL($black-20);
+
+    @include respond-to(small) {
+      @include m-Price-Old($black-20);
+    }
+  }
+
+  &__product-counter {
+    border: 2px solid $main-100;
+    border-radius: 30px;
+    overflow: hidden;
+
+    span,
+    button {
+      @include flexbox(flex, row, center, center);
+      @include Body-XL($black-60);
+      height: 48px;
+      min-width: 40px;
+    }
+
+    span {
+      min-width: 50px;
+      border-left: 2px solid $main-100;
+      border-right: 2px solid $main-100;
+    }
+
+    button {
+      border: none;
+      background: transparent;
+      transition: background 0.1s, color 0.1s;
+
+      &:hover {
+        background: $main-100;
+        color: $white;
+      }
+    }
+
+    @include respond-to(small) {
+      height: 28px;
+
+      span,
+      button {
+        min-width: 24px;
+        height: 28px;
+        @include m-Body-XL($black-60);
+      }
+    }
+  }
+
+  &__coupon {
+    align-self: flex-start;
+    @include L3;
+
+    @include respond-to(small) {
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+
+      h3 {
+        @include H3($black-80);
+
+        &:first-child {
+          @include m-H3($black-80);
+          text-align: right;
+        }
+      }
+    }
+  }
+
+  &__coupon-info {
+    @include Body($black-80);
+
+    @include respond-to(small) {
+      @include m-Body($black-80);
+    }
+  }
+
+  &__coupon-input {
+    border: 2px solid $black-50;
+
+    &::placeholder {
+      color: $black-20;
+    }
+  }
+
+  &__coupon-btn {
+    @include Body-L($main-100);
+    @include L2;
+  }
+
+  &__total-price-container {
+    @include Price-XL($black-80);
+
+    @include respond-to(small) {
+      text-align: right;
+      @include m-Price-XL($black-100);
+    }
+  }
+
+  &__old-total-price {
+    @include Price-XL-Old($black-20);
+
+    @include respond-to(small) {
+      @include m-Price-XL-Old($black-40);
+    }
+  }
+
+  &__buy-btn {
+    @include Body-XL($white);
+    @include L3;
+
+    @include respond-to(small) {
+      display: none;
+      @include m-Body-L($white);
+    }
+  }
+
+  &__make-order-btn {
+    display: none !important;
+    height: 48px;
+    @include m-Body-L($white);
+
+    @include respond-to(small) {
+      display: flex;
+    }
+  }
+}
+
+.recomendations {
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    height: 17px;
+    width: 100%;
+    background: $white;
+  }
+
+  &__cards-container {
+    overflow-x: scroll;
+  }
+
+  &__card {
+    min-width: 300px;
+    border-radius: 8px;
+    background: $black-10;
+    border-color: $black-10;
+
+    img {
+      border-radius: 8px 8px 0 0;
+    }
+  }
+
+  &__card-btn {
+    @include L3;
+  }
+
+  @include respond-to(small) {
+    display: none;
+  }
+}
+
+hr {
+  height: 2px;
+  background: $black-30;
+
+  @include respond-to(small) {
+    display: none;
+  }
+}
+
+.check {
+  &__price {
+    @include Price-XL($black-80);
+  }
+
+  &__old-price {
+    @include Price-XL-Old($black-40);
+  }
+
+  button {
+    @include Body-XL($white);
+    @include L5;
+    $padd-x: 8rem;
+    padding-left: $padd-x;
+    padding-right: $padd-x;
+  }
+
+  @include respond-to(small) {
+    display: none !important;
+  }
+}
+
+.footer {
+  background: $black-90;
+
+  .container {
+    @include respond-to(small) {
+      flex-direction: column;
+    }
+  }
+
+  &__menu {
+    grid-template-columns: 1fr 1fr 1fr;
+
+    @include respond-to(small) {
+      grid-template-columns: 50% 50%;
+      gap: 30px 0;
+    }
+  }
+
+  &__menu-column {
+    a {
+      @include Body($black-10);
+      margin-bottom: 15px;
+      width: max-content;
+
+      &::before {
+        background: $black-10;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      @include respond-to(small) {
+        @include m-Body($black-10);
+      }
+    }
+  }
+
+  &__info {
+    img {
+      height: auto;
+      object-fit: contain;
+    }
+  }
+
+  &__about-us {
+    @include respond-to(small) {
+      justify-content: flex-start !important;
+      flex-wrap: wrap;
+
+      img {
+        margin: 15px 5px;
+      }
+    }
+  }
+
+  &__copyright {
+    @include Body-S($white);
+
+    a {
+      @include Body-S($main-100);
+
+      &::before {
+        background: $main-100;
+      }
+
+      @include respond-to(small) {
+        @include m-Body-S($main-100);
+      }
+    }
+
+    @include respond-to(small) {
+      @include m-Body-S($white);
+    }
+  }
+}

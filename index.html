@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/styles/bootstrap.css">
+  <link rel="stylesheet" href="assets/styles/main.css">
+  <link rel="stylesheet" href="assets/styles/global.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+  <script type="module" src="assets/js/vue/main.js" defer></script>
+  <title>Vivat Pizza - Корзина</title>
+</head>
+<body>
+  <div class="container p-0" id="app">
+    <div class="header d-flex flex-column">
+      <div class="header__main mt-4 d-flex align-items-center">
+        <div class="header__logo col-6 col-sm-3">
+          <img class="header__logo-img" src="assets/static/images/logo/logo.svg" alt="">
+        </div>
+        <div class="header__locations col-sm-9 d-flex justify-content-around">
+          <location geo="Ховрино" phone="+7 (495) 980-66-22"></location>
+          <location geo="Измайлово" phone="+7 (495) 730-55-66"></location>
+          <location geo="Мытищи" phone="+7 (495) 500-40-40"></location>
+          <location geo="Хор.-Мневники" phone="+7 (495) 980-66-22"></location>
+        </div>
+        <div class="header__burger col-6">
+          <div class="header__burger-menu ms-auto d-flex flex-column justify-content-around p-1">
+            <span class="header__burger-line"></span>
+            <span class="header__burger-line"></span>
+            <span class="header__burger-line"></span>
+          </div>
+        </div>
+      </div>
+      <div class="header__sub-menu mt-3 justify-content-between">
+        <div class="header__sub-menu-item">
+          <a href="#">
+            <img src="assets/static/icons/phone.svg">
+          </a>
+        </div>
+        <div class="header__sub-menu-item">
+          <a href="#">
+            <img src="assets/static/icons/pos_mark_light.svg"> 
+          </a> 
+        </div>
+        <div class="header__sub-menu-item">
+          <a href="#">
+            <img src="assets/static/icons/user.svg">
+          </a>
+        </div>
+        <div class="header__sub-menu-item header__order-total">
+          <a href="#">
+            <img src="assets/static/icons/order.svg" class="me-2">
+            {{ basket.totalPrice }} ₽
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="basket mt-5">
+      <div class="basket__status d-flex align-items-center px-4 px-sm-0 col-sm-8">
+        <h2 class="basket__status-title basket__status-title--active">Корзина</h2>
+        <span class="basket__status-divider"></span>
+        <h2 class="basket__status-title">Оформление заказа</h2>
+        <span class="basket__status-divider"></span>
+        <h2 class="basket__status-title">Готово</h2>
+      </div>
+      <div class="basket__body d-flex mt-4 mt-sm-5 me-sm-5">
+        <div class="basket__products col-sm-8">
+          <product 
+            v-for="(product, id) in basket.items"
+            :key="id"
+            :id="id"
+            :product="product.data"
+            :count="product.count"
+            :increment="incrementBasketProductCount"
+            :decrement="decrementBasketProductCount">
+          </product>
+          <h2 class="ms-3 ms-sm-0 mt-3 mt-sm-5 mb-3 mb-sm-4">Подарки</h2>
+          <product 
+            v-for="(product, id) in basket.gifts"
+            :key="id"
+            :id="id"
+            :product="product.data">
+          </product>
+        </div>
+        <div class="basket__coupon card col-sm-4 ms-sm-5 p-3 p-sm-5">
+          <h3>+358 баллов</h3>
+          <p class="basket__coupon-info">
+            Баллы начисляются в течении двух дней и доступны для использования при заказе от 500 руб. Только для зарегистрированных пользователей. 
+          </p>
+          <p class="basket__coupon-info">
+            Зарегистрируйтесь или войдите.
+          </p>
+          <h3 class="mt-3 mb-3">Промокод</h3>
+          <div class="basket__coupon-apply d-flex flex-column">
+            <input class="basket__coupon-input rounded-pill py-1 px-3" type="text" placeholder="SUMMER2022">
+            <button class="basket__coupon-btn btn-main-light btn position-relative rounded-pill align-self-end mt-2 py-1 px-4">Применить</button>
+          </div>
+          <div class="basket__total-price-container mt-4">
+            Сумма заказа: <span class="basket__old-total-price">4200</span> {{ basket.totalPrice }} ₽
+          </div>
+          <button class="basket__buy-btn btn btn-main rounded-pill py-3 mt-4 mt-sm-5">Далее</button>
+          <button class="basket__make-order-btn btn btn-main rounded-pill py-3 mt-4 mt-sm-5">Оформить заказ</button>
+        </div>
+      </div>
+    </div>
+    <div class="recomendations position-relative mt-5 mb-4">
+      <h2 class="mb-4">Рекомендуем</h2>
+      <div class="recomendations__cards-container d-flex pb-2" ref="recomendations__cards" v-on:mousewheel="scrollHorizontally">
+        <rec-card
+          v-for="product in products"
+          :product="product">
+        </rec-card>
+      </div>
+    </div>
+    <hr>
+    <div class="check mt-4 d-flex flex-column align-items-end mb-5">
+      <span class="check__price">Сумма заказа: <span class="check__old-price">4200</span> {{ basket.totalPrice }} ₽</span>
+      <button class="btn btn-main rounded-pill py-3 mt-3">Далее</button>
+    </div>
+  </div>
+  <div class="footer mt-5 m-sm-0">
+    <div class="container py-4 d-flex justify-content-between">
+      <div class="footer__menu d-grid col-sm-5">
+        <div class="footer__menu-column d-flex flex-column">
+          <a href="#">Меню</a>
+          <a href="#">Барное меню</a>
+          <a href="#">Ресторан</a>
+          <a href="#">Акции</a>
+          <a href="#">Блюда за баллы</a>
+        </div>
+        <div class="footer__menu-column d-flex flex-column">
+          <a href="#">Доставка</a>
+          <a href="#">Отзывы</a>
+          <a href="#">Маленький кондитер</a>
+          <a href="#">Подарочные карты</a>
+        </div>
+        <div class="footer__menu-column d-flex flex-column">
+          <a href="#">О нас</a>
+          <a href="#">Вакансии</a>
+          <a href="#">События</a>
+          <a href="#">Статьи</a>
+          <a href="#">Контакты</a>
+        </div>
+      </div>
+      <div class="footer__info col-xxl-5 ps-xxl-5 mt-4 mt-sm-0 d-flex flex-column">
+        <div class="footer__about-us d-flex justify-content-between">
+          <img src="assets/static/images/footer/Visa.png">
+          <img src="assets/static/images/footer/Mastercard.png">
+          <a href="#">
+            <img src="assets/static/images/footer/GooglePlay.png">
+          </a>
+          <a href="#">
+            <img src="assets/static/images/footer/AppStore.png">
+          </a>
+        </div>
+        <div class="footer__copyright d-flex flex-column text-xxl-end mt-4">
+          <span>2004 - 2020 © Vivat Pizza. <a href="#">Договор публичной оферты</a></span>
+          <span>Использование материалов с сайта без нашего ведома незаконно</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
